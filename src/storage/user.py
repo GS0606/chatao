@@ -26,6 +26,9 @@ class UserStorage:
 
     def add_user(self, user) -> None:
         try:
+            if self.cursor is None:
+                self.cursor = self.connection.cursor()
+
             #insere um usuário no banco de dados
             self.cursor.execute('''
                 INSERT INTO users (email, password, nickname)
@@ -45,14 +48,22 @@ class UserStorage:
                 WHERE email = ?
             ''', (email,))
             user = self.cursor.fetchone()
+           
             if user:
-                return User(*user)
+                ret = User(*user)
+                logging.debug(f'[UserStorage] User {email} found: {ret}')
+                return ret
+            
+            logging.warn(f'[UserStorage] User {email} not found')
             return None
         except sqlite3.Error as e:
             logging.error(f'[UserStorage] Error getting user: {e}')
 
     def get_all_users(self) -> list[User]:
         try:
+            if self.cursor is None:
+                self.cursor = self.connection.cursor()
+                
             #busca todos os usuários no banco de dados
             self.cursor.execute('''
                 SELECT email, password, nickname
@@ -64,6 +75,9 @@ class UserStorage:
 
     def update_user(self, user) -> bool:
         try:
+            if self.cursor is None:
+                self.cursor = self.connection.cursor()
+                
             #atualiza um usuário no banco de dados
             self.cursor.execute('''
                 UPDATE users
@@ -79,6 +93,9 @@ class UserStorage:
 
     def delete_user(self, email) -> bool:
         try:
+            if self.cursor is None:
+                self.cursor = self.connection.cursor()
+                
             #deleta um usuário no banco de dados
             self.cursor.execute('''
                 DELETE FROM users

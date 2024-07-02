@@ -16,10 +16,9 @@ class MessageService:
                 logging.error('[MessageService] Invalid token')
                 return False
 
-            logging.info('[MessageService] Adding message')
-            message = Message(source, target, message)
-            self.message_storage.add_message(message)
-            logging.info('[MessageService] Message added')
+            data = Message(source, target, message)
+            self.message_storage.add_message(data)
+            logging.info(f'[MessageService] Message added-> {source} to {target}:{message}')
             return True
         except Exception as e:
             logging.error(f'[MessageService] Error adding message: {e}')
@@ -28,7 +27,7 @@ class MessageService:
     def get_messages(self, token, target) -> list[Message]:
         try:
             if not self.authService.validate_token(target, token):
-                logging.error('[MessageService] Invalid token')
+                logging.error(f'[MessageService] Invalid token {token} to target {target}')
                 return None
 
             return self.message_storage.get_messages(target)

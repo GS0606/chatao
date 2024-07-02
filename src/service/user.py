@@ -25,6 +25,8 @@ class UserService:
             user = self.user_storage.get_user(email)
             if user:
                 return user
+            
+            logging.warn(f"[UserService] User {email} not found")
             return None
         except Exception as e:
             logging.error(f"[UserService] Error getting user: {e}")
