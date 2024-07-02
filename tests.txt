@@ -1,0 +1,13 @@
+
+# Agora que a aplicação está pronta, vamos testar a API
+# Primeiro, vamos criar um usuário
+# curl -X POST http://127.0.0.1:5000/user -d '{"email": "user1@email.com", "password": "12345678", "nickname": "user1"}' -H 'Content-Type: application/json'
+# curl -X POST http://127.0.0.1:5000/user -d '{"email": "user2@email.com", "password": "12345678", "nickname": "user2"}' -H 'Content-Type: application/json'
+# Agora, vamos listar os usuários
+# curl http://127.0.0.1:5000/user -H 'Content-Type: application/json'
+# Agora, vamos autenticar o usuário
+# curl -X POST http://127.0.0.1:5000/auth -d '{"email": "user1@email.com", "password": "12345678"}' -H 'Content-Type: application/json'  
+# Agora, vamos enviar uma mensagem
+# curl -X POST http://127.0.0.1:5000/message -d '{"source": "user1@email.com", "target": "user2@email.com", "message": "Hello, user2"}' -H 'Content-Type: application/json' -H   'Authorization:<token>'
+# Agora, vamos listar as mensagens
+# curl http://127.0.0.1:5000/message/user2@email.com -H 'Content-Type: application/json' -H 'Authorization:<token>'
