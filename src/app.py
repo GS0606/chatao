@@ -312,7 +312,8 @@ if __name__ == '__main__':
 # curl http://127.0.0.1:5000/user -H 'Content-Type: application/json'
 # Agora, vamos autenticar o usuário
 # curl -X POST http://127.0.0.1:5000/auth -d '{"email": "user1@email.com", "password": "12345678"}' -H 'Content-Type: application/json'  
-# Agora, vamos enviar uma mensagem
+# Agora, vamos enviar uma mensagem no postman
+# curl -X POST http://127.0.0.1:5000/message -d '{"source": "user1@ email.com", "target": " user2@ email.com", "message": "Hello, user2"}' -H 'Content-Type: application/json   ' -H 'Authorization :<token>'
 # curl -X POST http://127.0.0.1:5000/message -d '{"source": "user1@email.com", "target": "user2@email.com", "message": "Hello, user2"}' -H 'Content-Type: application/json' -H   'Authorization:<token>'
 # Agora, vamos listar as mensagens
 # curl http://127.0.0.1:5000/message/user2 -H 'Content-Type: application/json'
